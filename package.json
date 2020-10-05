@@ -31,7 +31,7 @@
 		"rfdc": "^1.1.4",
 		"typescript": "^3.8.3"
 	},
-	"files" : [
-		"./build/index.js"	
+	"files": [
+		"build/index.js"
 	]
 }
