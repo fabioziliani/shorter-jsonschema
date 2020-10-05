@@ -4,7 +4,7 @@ import * as rfdc from 'rfdc'
 const clone = rfdc()
 
 export type LongJsonSchema = {
-	type: string
+	type?: string | string
 	[k: string]: any
 }
 
@@ -37,6 +37,12 @@ export function expandType(conf: Conf, short: ShortJsonSchema): LongJsonSchema {
 		return short
 
 	if (typeof short === 'string') {
+		// let wasRequired = false
+		// if (short.endsWith('?')) {
+		// 	wasRequired = true
+		// 	short = short.slice(0, -1)
+		// }
+
 		const maybeLong = conf.nameToSchemas && conf.nameToSchemas[short]
 		if (maybeLong != null)
 			return clone(maybeLong)
@@ -60,12 +66,26 @@ export function expandType(conf: Conf, short: ShortJsonSchema): LongJsonSchema {
 		}
 	}
 
-	const obj: LongJsonSchema = {
-		type: 'object'
+	//object
+	let required: string[] = []
+
+	const pp: any = {}
+	for (let k in short) {
+		const s = short[k]
+		if (k.endsWith('?'))
+			k = k.slice(0, -1)
+		else
+			required.push(k)
+		pp[k] = expandType(conf, s)
 	}
 
-	for (const k in short)
-		obj[k] = expandType(conf, short[k])
+	const obj: any = {
+		type: 'object',
+		properties: pp
+	}
+	if (required.length)
+		obj.required = required
+
 	return obj
 }
 

@@ -10,6 +10,11 @@ function expandType(conf, short) {
     if (isLong(short))
         return short;
     if (typeof short === 'string') {
+        // let wasRequired = false
+        // if (short.endsWith('?')) {
+        // 	wasRequired = true
+        // 	short = short.slice(0, -1)
+        // }
         const maybeLong = conf.nameToSchemas && conf.nameToSchemas[short];
         if (maybeLong != null)
             return clone(maybeLong);
@@ -30,11 +35,23 @@ function expandType(conf, short) {
             items: short.map(s => expandType(conf, s))
         };
     }
+    //object
+    let required = [];
+    const pp = {};
+    for (let k in short) {
+        const s = short[k];
+        if (k.endsWith('?'))
+            k = k.slice(0, -1);
+        else
+            required.push(k);
+        pp[k] = expandType(conf, s);
+    }
     const obj = {
-        type: 'object'
+        type: 'object',
+        properties: pp
     };
-    for (const k in short)
-        obj[k] = expandType(conf, short[k]);
+    if (required.length)
+        obj.required = required;
     return obj;
 }
 exports.expandType = expandType;

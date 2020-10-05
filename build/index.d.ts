@@ -1,5 +1,5 @@
 export declare type LongJsonSchema = {
-    type: string;
+    type?: string | string;
     [k: string]: any;
 };
 export declare type ShortNames = 'string' | 'number' | 'integer' | 'boolean' | 'null' | string;

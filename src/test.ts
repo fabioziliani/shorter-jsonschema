@@ -4,9 +4,15 @@ import { compiler, Conf, ShortJsonSchema } from './index'
 
 
 const tests: ShortJsonSchema[] = [
-	'number',
-	'num',
-	'string'
+	// 'number',
+	// 'num',
+	// 'string',
+	{
+		"name?": 'string',
+		surname: 'string',
+		age: 'number',
+		speed: 'number?'
+	}
 ]
 
 const conf: Conf = {
@@ -14,11 +20,25 @@ const conf: Conf = {
 		'num': {
 			type: 'number',
 			minimum: '256'
+		},
+		'number?': {
+			oneOf: [
+				{
+					type: 'number'
+				},
+				{ type: 'null' }
+			]
 		}
 	},
 	default: {
-		'number': {
-			exclusiveMinimum: ' 1024'
+		object: {
+			additionalProperties: false
+		},
+		number: {
+			exclusiveMinimum: 1024
+		},
+		string: {
+			maxLength: 256
 		}
 	}
 }
@@ -26,4 +46,11 @@ const conf: Conf = {
 const compile = compiler(conf)
 
 for (const t of tests)
-	console.log(t, compile(t))
+	console.log(`-----
+Input:
+${JSON.stringify(t, null, 2)}
+
+Output:
+${JSON.stringify(compile(t), null, 2)}
+
+`)
