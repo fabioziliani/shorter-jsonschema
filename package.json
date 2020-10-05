@@ -1,0 +1,34 @@
+{
+	"name": "shorter-jsonschema",
+	"version": "0.1.0",
+	"description": "Shorter syntax to generate JSON Schemas",
+	"repository": {},
+	"main": "./build/index.js",
+	"scripts": {
+		"build": "tsc -p .",
+		"dev": "tsc -p tsconfigDev.json",
+		"start": "node ./build",
+		"test": "node ./build/test"
+	},
+	"keywords": [
+		"JSON",
+		"schema",
+		"jsonschema",
+		"json-schema",
+		"short",
+		"shorter",
+		"abbreviation"
+	],
+	"author": {
+		"name": "Fabio Ziliani",
+		"email": "feross@feross.org",
+		"url": "http://feross.org"
+	},
+	"license": "MIT",
+	"dependencies": {
+		"@types/node": "^13.13.0",
+		"@types/rfdc": "^1.1.0",
+		"rfdc": "^1.1.4",
+		"typescript": "^3.8.3"
+	}
+}
