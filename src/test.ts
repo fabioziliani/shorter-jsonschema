@@ -1,6 +1,6 @@
 
 
-import { compile, Conf, ShortJsonSchema } from './index'
+import { compiler, Conf, ShortJsonSchema } from './index'
 
 
 const tests: ShortJsonSchema[] = [
@@ -23,6 +23,7 @@ const conf: Conf = {
 	}
 }
 
+const compile = compiler(conf)
 
 for (const t of tests)
-	console.log(t, compile(conf, t))
+	console.log(t, compile(t))

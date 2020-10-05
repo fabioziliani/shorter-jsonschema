@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.compile = exports.expandType = void 0;
+exports.compiler = exports.expandType = void 0;
 const rfdc = require("rfdc");
 const clone = rfdc();
 function isLong(short) {
@@ -98,5 +98,11 @@ function compile(conf, short) {
     applyDefaults(conf, long);
     return long;
 }
-exports.compile = compile;
+function compiler(conf) {
+    function c(short) {
+        return compile(conf, short);
+    }
+    return c;
+}
+exports.compiler = compiler;
 //# sourceMappingURL=index.js.map

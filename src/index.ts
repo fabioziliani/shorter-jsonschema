@@ -134,8 +134,15 @@ function applyDefaults(conf: Conf, long: LongJsonSchema) {
 }
 
 
-export function compile(conf: Conf, short: ShortJsonSchema) {
+function compile(conf: Conf, short: ShortJsonSchema) {
 	const long = expandType(conf, short)
 	applyDefaults(conf, long)
 	return long
+}
+
+export function compiler(conf: Conf) {
+	function c(short: ShortJsonSchema) {
+		return compile(conf, short)
+	}
+	return c
 }

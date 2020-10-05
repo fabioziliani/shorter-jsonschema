@@ -19,6 +19,7 @@ const conf = {
         }
     }
 };
+const compile = index_1.compiler(conf);
 for (const t of tests)
-    console.log(t, index_1.compile(conf, t));
+    console.log(t, compile(t));
 //# sourceMappingURL=test.js.map
