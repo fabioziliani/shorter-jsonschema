@@ -21,8 +21,7 @@
 	],
 	"author": {
 		"name": "Fabio Ziliani",
-		"email": "feross@feross.org",
-		"url": "http://feross.org"
+		"email": "fabio.ziliani@gmail.com"
 	},
 	"license": "MIT",
 	"dependencies": {
